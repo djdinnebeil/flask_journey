@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Flask Journey{% endblock %}</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; }
+    .flash { padding: 1em; background-color: #eee; border-left: 4px solid #999; margin-bottom: 1em; }
+    .success { border-color: green; }
+    .error { border-color: red; }
+  </style>
+</head>
+<body>
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Page-specific content -->
+  {% block content %}{% endblock %}
+</body>
+</html>

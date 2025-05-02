@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <h1>Profile for {{ user.username }}</h1>
+  <p>User id is: {{ user.id }}</p>
+  {% if is_admin %}
+  <p>User is admin</p>Hey
+  {% endif %}
+</body>
+</html>
+
