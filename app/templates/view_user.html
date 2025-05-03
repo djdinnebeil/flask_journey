@@ -20,6 +20,7 @@
   {% if current_user.id == user.id %}
     <button class="toggle" onclick="toggleEdit()">Edit Profile</button>
     <form method="post" id="edit-form" style="display: none;">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <label for="username">New Username:</label><br>
       <input type="text" name="username" id="username" value="{{ user.username }}" required><br><br>
       <input type="submit" value="Update">
@@ -27,11 +28,10 @@
   {% endif %}
 </div>
 
-{% if current_user.is_admin %}
+{% if current_user.is_admin and not user.is_admin %}
    <a href="{{ url_for('admin.ban_user', id=user.id) }}">Ban account</a>
 {% endif %}
 {% endblock %}
-
 
 
 {% if message %}

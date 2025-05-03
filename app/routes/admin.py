@@ -19,5 +19,5 @@ def ban_user(id):
     if user:
         user.banned_at = datetime.utcnow()
         db.session.commit()
-        return jsonify({"message": "User deleted successfully"})
+        return jsonify({"message": "User has been banned"})
     return jsonify({"message": "User not found"}), 404

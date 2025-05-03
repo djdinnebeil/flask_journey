@@ -6,10 +6,11 @@
 
 {% if current_user.is_authenticated %}
   <p>You are already logged in as {{ current_user.username }}.</p>
-  <p><a href="{{ url_for('auth.logout') }}">Log out</a> or go to <a href="{{ url_for('auth.welcome') }}">your dashboard</a>.</p>
+  <p><a href="{{ url_for('auth.logout') }}">Log out</a> or go to <a href="{{ url_for('main.get_user', id=current_user.id) }}">your dashboard</a>.</p>
 {% else %}
 <h1>Login</h1>
 <form method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
   <label for="username">Username:</label><br>
   <input type="text" name="username" id="username" value="{{ username }}" required><br><br>
   <label for="password">Password:</label><br>

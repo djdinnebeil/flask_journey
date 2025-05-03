@@ -35,7 +35,7 @@ def update_user(id):
     user = db.session.get(User, id)
 
     if not user:
-        return jsonify({"error": "User not found"}), 404
+        return jsonify({'error': 'User not found'}), 404
 
     existing = db.session.execute(
         db.select(User).filter_by(username=username)
