@@ -1,15 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-  <h1>Profile for {{ user.username }}</h1>
-  <p>User id is: {{ user.id }}</p>
-  {% if is_admin %}
-  <p>User is admin</p>Hey
-  {% endif %}
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
 
+{% block extra_styles %}
+    body { font-family: sans-serif; padding: 2rem; }
+    .profile-box { max-width: 500px; border: 1px solid #ccc; padding: 1.5rem; border-radius: 8px; }
+    .admin-badge { color: white; background-color: #007BFF; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+    #edit-form { display: none; margin-top: 1rem; }
+    button.toggle { margin-top: 1rem; }
+{% endblock %}
+
+{% block content %}
+<div class="profile-box">
+  <h2>Profile for {{ user.username }}</h2>
+  <p><strong>User ID:</strong> {{ user.id }}</p>
+  {% if user.is_admin %}
+    <p><span class="admin-badge">Admin</span></p>
+  {% endif %}
+
+  {% if current_user.id == user.id %}
+    <button class="toggle" onclick="toggleEdit()">Edit Profile</button>
+    <form method="post" id="edit-form" style="display: none;">
+      <label for="username">New Username:</label><br>
+      <input type="text" name="username" id="username" value="{{ user.username }}" required><br><br>
+      <input type="submit" value="Update">
+    </form>
+  {% endif %}
+</div>
+
+{% if current_user.is_admin %}
+   <a href="{{ url_for('admin.ban_user', id=user.id) }}">Ban account</a>
+{% endif %}
+{% endblock %}
+
+
+
+{% if message %}
+  <div class="message">{{ message }}</div>
+{% endif %}
+{% if error %}
+  <div class="message error">{{ error }}</div>
+{% endif %}
+
+{% block extra_js %}
+<script>
+  function toggleEdit() {
+    const form = document.getElementById("edit-form");
+    form.style.display = form.style.display === "none" ? "block" : "none";
+  }
+</script>
+{% endblock %}

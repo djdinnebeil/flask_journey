@@ -2,25 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{% block title %}Flask Journey{% endblock %}</title>
+  <title>{% block title %}Flask Project{% endblock %}</title>
   <style>
-    body { font-family: sans-serif; padding: 2rem; }
-    .flash { padding: 1em; background-color: #eee; border-left: 4px solid #999; margin-bottom: 1em; }
-    .success { border-color: green; }
-    .error { border-color: red; }
+    body { font-family: sans-serif; margin: 0; padding: 1rem; }
+    nav { background-color: #eee; padding: 1rem; }
+    nav a { margin-right: 1rem; text-decoration: none; }
+    .message { margin: 1rem 0; padding: 0.5rem; background-color: #f2f2f2; border: 1px solid #ccc; }
+    .error { color: darkred; }
+    {% block extra_styles %}{% endblock %}
   </style>
+
 </head>
 <body>
-  <!-- Flash messages -->
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for category, message in messages %}
-        <div class="flash {{ category }}">{{ message }}</div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
 
-  <!-- Page-specific content -->
-  {% block content %}{% endblock %}
+<nav>
+  {% if current_user.is_authenticated %}
+    Logged in as {{ current_user.username }}
+    {% if current_user.is_admin %} (Admin) {% endif %}
+    <a href="{{ url_for('main.get_user', id=current_user.id) }}">Profile</a>
+    <a href="{{ url_for('main.get_users') }}">Users</a>
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+  {% else %}
+    <a href="{{ url_for('auth.login') }}">Login</a>
+    <a href="{{ url_for('auth.register') }}">Register</a>
+  {% endif %}
+</nav>
+
+{% if message %}
+  <div class="message">{{ message }}</div>
+{% endif %}
+
+{% if error %}
+  <div class="message error">{{ error }}</div>
+{% endif %}
+
+{% block content %}{% endblock %}
+{% block extra_js %}{% endblock %}
 </body>
 </html>

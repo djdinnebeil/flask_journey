@@ -25,7 +25,7 @@ def create_app():
         seed()
 
     # Set login view for @login_required redirect
-    login_manager.login_view = 'auth.login'
+    login_manager.login_view = 'auth.login_error'
 
     # Register blueprints
     register_blueprints(app)
