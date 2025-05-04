@@ -4,9 +4,10 @@ from app.core import db
 from app.models.user import User
 from werkzeug.security import generate_password_hash
 
+
 @pytest.fixture
 def app():
-    app = create_app(test_config={
+    app = create_app(config_class='app.config.DevelopmentConfig' ,test_config={
         'TESTING': True,
         'SQLALCHEMY_DATABASE_URI': 'sqlite:///:memory:',
         'WTF_CSRF_ENABLED': False,

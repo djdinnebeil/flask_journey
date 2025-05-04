@@ -2,63 +2,6 @@
 
 {% block title %}All Users{% endblock %}
 
-{% block extra_styles %}
-<style>
-  .user-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
-    padding: 0 10px;
-  }
-
-  .user-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    background-color: #f9f9f9;
-  }
-
-  .user-header {
-    font-size: 1.2em;
-    margin-bottom: 0.25rem;
-  }
-
-  .user-link {
-    font-weight: bold;
-    color: #007BFF;
-    text-decoration: none;
-  }
-
-  .user-link:hover {
-    text-decoration: underline;
-  }
-
-  .meta {
-    font-size: 0.9em;
-    color: #555;
-  }
-
-  .admin-badge,
-  .banned-badge {
-    display: inline-block;
-    margin-left: 0.5rem;
-    padding: 2px 6px;
-    font-size: 0.8em;
-    border-radius: 4px;
-    color: white;
-  }
-
-  .admin-badge {
-    background-color: #007BFF;
-  }
-
-  .banned-badge {
-    background-color: darkred;
-  }
-</style>
-{% endblock %}
-
 {% block content %}
 <h1>All Users</h1>
 

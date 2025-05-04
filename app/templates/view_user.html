@@ -1,14 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
 
-{% block extra_styles %}
-    body { font-family: sans-serif; padding: 2rem; }
-    .profile-box { max-width: 500px; border: 1px solid #ccc; padding: 1.5rem; border-radius: 8px; }
-    .admin-badge { color: white; background-color: #007BFF; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
-    #edit-form { display: none; margin-top: 1rem; }
-    button.toggle { margin-top: 1rem; }
-{% endblock %}
-
 {% block content %}
 <div class="profile-box">
   <h2>Profile for {{ user.username }}</h2>
@@ -18,8 +10,8 @@
   {% endif %}
 
   {% if current_user.id == user.id %}
-    <button class="toggle" onclick="toggleEdit()">Edit Profile</button>
-    <form method="post" id="edit-form" style="display: none;">
+    <button class="toggle">Edit Profile</button>
+<form method="post" id="edit-form" class="hidden-form">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <label for="username">New Username:</label><br>
       <input type="text" name="username" id="username" value="{{ user.username }}" required><br><br>
@@ -42,10 +34,5 @@
 {% endif %}
 
 {% block extra_js %}
-<script>
-  function toggleEdit() {
-    const form = document.getElementById("edit-form");
-    form.style.display = form.style.display === "none" ? "block" : "none";
-  }
-</script>
+<script src="{{ url_for('static', filename='edit_profile.js') }}"></script>
 {% endblock %}
